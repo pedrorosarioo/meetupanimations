@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 
-import Example from './src/samples/Timing/Gabarito';
+import Example from './src/samples/Combining';
 
 interface Props {}
 export default class App extends Component<Props> {
