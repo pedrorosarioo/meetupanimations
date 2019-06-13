@@ -27,7 +27,6 @@ export default class Timing extends Component<IProps, IState> {
   };
 
   render() {
-    const { top } = this.state;
     return (
       <View style={styles.container}>
         <View style={{ ...styles.square}} />

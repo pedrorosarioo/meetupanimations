@@ -33,6 +33,13 @@ export default class Timing extends Component<IProps, IState> {
       friction: 1,
       tension: 41,
     }).start();
+
+    // Animated.spring(this.state.scale, {
+    //   toValue: 2,
+    //   velocity: 50,
+    //   stiffness: 33,
+    //   mass: 4
+    // }).start();
   };
 
   render() {
