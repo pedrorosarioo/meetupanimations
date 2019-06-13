@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Text,
   Animated,
-  Easing,
+  Easing
 } from 'react-native';
 
 /* 
@@ -14,64 +14,72 @@ import {
 
 interface IProps {}
 
-
 const Interpolation = (props: IProps) => {
+  const degrees = new Animated.Value(0);
 
-    const degrees = new Animated.Value(0);
+  const rotateY = degrees.interpolate({
+    inputRange: [0, 180],
+    outputRange: ['0deg', '180deg']
+  });
 
-    const rotateY = degrees.interpolate({
-        inputRange: [0, 180],
-        outputRange: [0+'deg', 180+'deg']
-    })
+  const frontOpacity = degrees.interpolate({
+    inputRange: [0, 90, 180, 270, 360],
+    outputRange: [1, 0, 0, 0, 1]
+  });
 
-    const frontOpacity = degrees.interpolate({
-        inputRange: [0, 90, 180, 270, 360],
-        outputRange: [1, 0, 0, 0, 1],
-        
-    })
+  const backOpacity = degrees.interpolate({
+    inputRange: [0, 90, 180, 270, 360],
+    outputRange: [0, 0, 1, 0, 0]
+  });
 
-    const backOpacity = degrees.interpolate({
-        inputRange: [0, 90, 180, 270, 360],
-        outputRange: [0, 0, 1, 0, 0],        
-    })
+  const color = degrees.interpolate({
+    inputRange: [0, 180, 360],
+    outputRange: ['#000', '#2b8', '#000']
+  });
 
-    const color = degrees.interpolate({
-        inputRange: [0, 180, 360],
-        outputRange: ['#000', '#2b8', '#000'],
-    
-    })
+  const rotateTo = (toValue: number, duration: number) => {
+    return Animated.timing(degrees, {
+      toValue,
+      duration,
+      easing: Easing.linear
+    });
+  };
 
-    const rotateTo = (toValue: number, duration: number) => {
-        return Animated.timing(degrees, {
-            toValue,
-            duration,
-            easing: Easing.linear,
-        });
-    }
-
-
-    const handlePress = () => {
-        Animated.loop(rotateTo(360, 3000)).start();
-    }
+  const handlePress = () => {
+    Animated.loop(rotateTo(360, 3000)).start();
+  };
 
   return (
     <View style={styles.container}>
-      <Animated.View 
+      <Animated.View
         style={{
           ...styles.card,
           borderColor: color,
-          transform: [{rotateY}]
+          transform: [{ rotateY }]
         }}
       >
-        <Animated.Text style={{ ...styles.label, color, opacity: frontOpacity}}>FRENTE</Animated.Text>
-        <Animated.Text style={{ ...styles.label, color, opacity: backOpacity, transform: [{scaleX: -1}]}}>VERSO</Animated.Text>
+        <Animated.Text
+          style={{ ...styles.label, color, opacity: frontOpacity }}
+        >
+          FRENTE
+        </Animated.Text>
+        <Animated.Text
+          style={{
+            ...styles.label,
+            color,
+            opacity: backOpacity,
+            transform: [{ scaleX: -1 }]
+          }}
+        >
+          VERSO
+        </Animated.Text>
       </Animated.View>
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text>INTERPOLATION EXAMPLE</Text>
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -98,7 +106,7 @@ const styles = StyleSheet.create({
   label: {
     position: 'absolute',
     top: '45%',
-    fontSize: 40,
+    fontSize: 40
   }
 });
 

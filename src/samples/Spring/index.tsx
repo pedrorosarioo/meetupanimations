@@ -32,12 +32,7 @@ export default class Spring extends Component<IProps, IState> {
   }
 
   handlePress = () => {
-    Animated.spring(this.state.scale, {
-      toValue: 2,
-      velocity: 50,
-      stiffness: 33,
-      mass: 4
-    }).start();
+    
   };
 
   render() {

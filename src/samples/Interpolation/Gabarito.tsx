@@ -4,7 +4,7 @@ import {
   View,
   TouchableOpacity,
   Text,
-  Animated,
+  Animated
 } from 'react-native';
 
 /* 
@@ -13,21 +13,19 @@ import {
 
 interface IProps {}
 
-
 const Interpolation = (props: IProps) => {
-  
   const translateY = new Animated.Value(0);
   const translateX = new Animated.Value(0);
 
   const opacity = translateY.interpolate({
-      inputRange: [0, 290],
-      outputRange: [1, 0.3]
+    inputRange: [0, 290],
+    outputRange: [1, 0.3]
   });
 
   const color = translateX.interpolate({
-      inputRange: [0, 310],
-      outputRange: ['#ff1', '#2d2']
-  })
+    inputRange: [0, 310],
+    outputRange: ['#ff1', '#2d2']
+  });
 
   const moveUp = Animated.timing(translateY, {
     toValue: 0,
@@ -43,25 +41,25 @@ const Interpolation = (props: IProps) => {
     toValue: 0,
     duration: 900
   });
-    
+
   const moveRight = Animated.timing(translateX, {
     toValue: 310,
-    duration: 900,
-  })
+    duration: 900
+  });
 
   const handlePress = () => {
     const move = Animated.sequence([moveDown, moveRight, moveUp, moveLeft]);
     Animated.loop(move).start();
-  }
+  };
 
   return (
     <View style={styles.container}>
-      <Animated.View 
+      <Animated.View
         style={{
           ...styles.circle,
           opacity,
           backgroundColor: color,
-          transform: [{ translateX },{ translateY }]
+          transform: [{ translateX }, { translateY }]
         }}
       />
       <TouchableOpacity style={styles.button} onPress={handlePress}>
@@ -69,7 +67,7 @@ const Interpolation = (props: IProps) => {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
